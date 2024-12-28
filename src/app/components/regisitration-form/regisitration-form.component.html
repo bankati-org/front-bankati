@@ -1,0 +1,144 @@
+<div class="flex min-h-screen max-h-screen overflow-y-auto">
+  <!-- Left Side - Sign Up Form -->
+  <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 to-blue-800 p-8 lg:p-12 items-center justify-center overflow-y-auto">
+    <div class="max-w-lg text-white">
+      <h2 class="text-4xl font-bold mb-4">Welcome To FillQuick Pay! Join Now For Seamless Payments</h2>
+      <p class="mb-6 text-blue-100">
+        Lorem ipsum dolor sit amet consectetur. At eget feugiat in amet odio. Adipiscing at fringilla condimentum in sed. Tempus etiam est morbi in at gravida vel elementum. Ac orci ut sem massa in diam.
+      </p>
+
+      <!-- Sales Report Graph Placeholder -->
+      <div class="bg-white/10 rounded-lg p-4">
+        <div class="text-sm mb-4">Sales Report</div>
+        <div class="h-40 rounded-lg bg-white/5"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Right Side - Welcome Section -->
+  <div class="w-full lg:w-1/2 p-4 lg:p-8 overflow-hidden">
+    <div class="max-w-md w-full mx-auto">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-3">
+        <!-- Google Sign In -->
+        <button type="button" (click)="signInWithGoogle()"
+                class="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-s py-3 px-2 hover:bg-gray-50">
+          <img ngSrc="assets/google.svg" alt="Google" class="w-5 h-5" height="48" width="48">
+          Sign up with Google
+        </button>
+
+        <div class="relative flex items-center">
+          <div class="flex-grow border-t border-gray-300"></div>
+          <span class="flex-shrink mx-4 text-sm text-gray-600">OR</span>
+          <div class="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between space-x-4">
+            <div class="w-3/6">
+              <label class=" text-sm font-medium mb-1 inline-block">First Name</label>
+              <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="inline-block ml-4">
+                <small class="text-red-500" *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required.</small>
+              </div>
+              <input type="text" formControlName="firstName"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     placeholder="Enter your first name">
+            </div>
+            <div class="w-3/6">
+              <label class=" text-sm font-medium mb-1 inline-block">Last Name</label>
+              <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="inline-block ml-4">
+                <small class="text-red-500" *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+              </div>
+              <input type="text" formControlName="lastName"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     placeholder="Enter your last name">
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div>
+          <label class="text-sm font-medium mr-2 inline-block">Email</label>
+          <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['required']">Email is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+          </div>
+          <input type="email" formControlName="email"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="Enter your email">
+        </div>
+<!--      phone input-->
+        <div>
+          <label class="text-sm font-medium mb-1 inline-block">Phone Number</label>
+          <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('phone')?.errors?.['required']">Phone number is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('phone')?.errors?.['pattern']">Please enter a valid phone number (e.g., +212123456789).</small>
+          </div>
+          <div class="relative">
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <img ngSrc="assets/morocco.svg" alt="Morocco flag" class="w-7 h-7" height="48" width="48">
+              <span class="text-gray-600">+212</span>
+            </div>
+            <input type="tel"
+                   formControlName="phone"
+                   class="w-full pl-24 pr-4 py-3 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Enter your phone number">
+          </div>
+        </div>
+        <!-- Password Input -->
+        <div>
+          <label class="text-sm font-medium mb-1 inline-block">Password</label>
+          <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</small>
+          </div>
+          <input type="password" formControlName="password"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="••••••••">
+        </div>
+
+        <!-- Retype Password Input -->
+        <div>
+          <label class="text-sm font-medium mb-1 inline-block">Retype Password</label>
+          <!-- Password Mismatch Error -->
+          <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('retypePassword')?.touched" class="inline-block ml-4">
+            <small class="text-red-500">Passwords do not match.</small>
+          </div>
+          <div *ngIf="signupForm.get('retypePassword')?.invalid && signupForm.get('retypePassword')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('retypePassword')?.errors?.['required']">Retyping password is required. * </small>
+          </div>
+          <input type="password" formControlName="retypePassword"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="••••••••">
+        </div>
+
+
+
+        <!-- Terms Checkbox -->
+        <div class="flex items-center">
+          <input type="checkbox" formControlName="terms" id="terms"
+                 class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+          <label for="terms" class="ml-2 text-sm text-gray-600 inline-block">
+            I accepted all terms & conditions
+          </label>
+          <div *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched" class="inline-block ml-4">
+            <small class="text-red-500">You must accept this * </small>
+          </div>
+        </div>
+        <!-- Submit Button -->
+
+        <button type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-2 rounded-s hover:bg-blue-700 transition-colors flex items-center justify-start"
+                [disabled]="!signupForm.valid || isLoading"
+                [ngStyle]="{'cursor': !signupForm.valid || isLoading ? 'not-allowed' : 'pointer'}">
+          <!-- Spinner inside the button, left of the text -->
+          <div *ngIf="isLoading" class="spinner-border w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+          <span class="flex-grow text-center">Sign in</span>
+        </button>
+
+
+
+      </form>
+    </div>
+  </div>
+
+
+</div>
