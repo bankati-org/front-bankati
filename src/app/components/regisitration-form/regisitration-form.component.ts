@@ -34,6 +34,29 @@ export class RegistrationFormComponent {
   signupForm: FormGroup;
   isLoading: boolean = false;
   showTermsModal = false;
+  uploadedImage: string | null = null;
+  isHovered = false;  // Used to track hover state
+
+
+  // Trigger file input when the button is clicked
+  uploadFile(): void {
+    document.getElementById('fileInput')?.click();
+  }
+
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.uploadedImage = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+
 
   openTermsModal(event: Event) {
     const checkbox = event.target as HTMLInputElement;

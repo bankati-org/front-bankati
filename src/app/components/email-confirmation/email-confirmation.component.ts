@@ -138,8 +138,8 @@ export class EmailConfirmationComponent implements OnInit{
             next: (response) => {
               console.error(response);
               this.isLoading = false;
-              this.toastService.showToast('Email verified successfully!', 'success');
-              this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { email: response.data } }).then(() => {
+              this.toastService.showToast(response.message , 'success');
+              this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data } }).then(() => {
               }).catch((err) => {
                 console.error('Navigation error:', err);
               });            },

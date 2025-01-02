@@ -133,11 +133,13 @@ export class PhoneConfirmationComponent {
       this.toastService.showToast('Verifying code...', 'info');
 
       setTimeout(() => {
+        console.log(this.phone)
         if (this.phone) {
           this.verificationService.verifyPhone(this.phone, this.verificationCode).subscribe({
             next: (response) => {
+              console.error(response);
               this.isLoading = false;
-              this.toastService.showToast('Email verified successfully!', 'success');
+              this.toastService.showToast('Phone verified successfully!', 'success');
               },
             error: (err) => {
               this.isLoading = false;
@@ -148,7 +150,7 @@ export class PhoneConfirmationComponent {
             }
           });
         } else {
-          this.toastService.showToast('Email is required.', 'error');
+          this.toastService.showToast('Phone is required.', 'error');
         }
       }, 3000);
     }
