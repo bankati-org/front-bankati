@@ -11,5 +11,4 @@ import {RegistrationFormComponent} from "./components/regisitration-form/regisit
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'BANKATI-2';
 }

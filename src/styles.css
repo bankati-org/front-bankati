@@ -39,8 +39,9 @@ body {
 
 /* Custom focus styles for better accessibility */
 :focus {
-  outline: 1px solid #3b82f6;
+  outline: 0 solid;
   outline-offset: 1px;
+  border-color: #3b82f6;
 }
 
 

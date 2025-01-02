@@ -12,7 +12,7 @@
     <!-- Text content -->
     <h1 class="text-xl font-semibold text-gray-900 mb-4">Please Verify Account</h1>
     <p class="text-gray-600 mb-8">
-      Enter the six-digit code we sent to your email address <span class="text-blue-500 underline">{{ email }}</span> to verify your new BANKATI account:
+      Enter the six-digit code we sent to your phone number <span class="text-blue-500 underline">{{ phone }}</span> to verify your new BANKATI account:
     </p>
 
     <!-- Verification code inputs -->
@@ -39,7 +39,7 @@
       [disabled]="isLoading || !isCodeComplete()"
     >
       <div *ngIf="isLoading" class="spinner-border w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-      <span class="flex-grow text-center">      Verify & Continue</span>
+      <span class="flex-grow text-center"> Verify & Continue</span>
     </button>
     <div class="mt-2">
       <p class="text-sm text-center text-gray-700 ">

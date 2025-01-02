@@ -16,11 +16,11 @@
   </div>
   <!-- Right Side - Welcome Section -->
   <div class="w-full lg:w-1/2 p-4 lg:p-8 overflow-hidden">
-    <div class="max-w-md w-full mx-auto">
+    <div class="max-w-prose w-full mx-auto">
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-3">
         <!-- Google Sign In -->
         <button type="button" (click)="signInWithGoogle()"
-                class="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-s py-3 px-2 hover:bg-gray-50">
+                class="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-[2px] py-3 px-2 hover:bg-gray-50">
           <img ngSrc="assets/google.svg" alt="Google" class="w-5 h-5" height="48" width="48">
           Sign up with Google
         </button>
@@ -39,7 +39,7 @@
                 <small class="text-red-500" *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required.</small>
               </div>
               <input type="text" formControlName="firstName"
-                     class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                      placeholder="Enter your first name">
             </div>
             <div class="w-3/6">
@@ -48,7 +48,7 @@
                 <small class="text-red-500" *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
               </div>
               <input type="text" formControlName="lastName"
-                     class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                      placeholder="Enter your last name">
             </div>
           </div>
@@ -56,21 +56,21 @@
 
         <!-- Email Input -->
         <div>
-          <label class="text-sm font-medium mr-2 inline-block">Email</label>
-          <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="inline-block ml-4">
+          <label class="text-sm font-medium mr-2  mb-1 inline-block">Email</label>
+          <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="inline-block ">
             <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['required']">Email is required *.</small>
             <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
           </div>
           <input type="email" formControlName="email"
-                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Enter your email">
         </div>
 <!--      phone input-->
         <div>
           <label class="text-sm font-medium mb-1 inline-block">Phone Number</label>
-          <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="inline-block ml-4">
-            <small class="text-red-500" *ngIf="signupForm.get('phone')?.errors?.['required']">Phone number is required *.</small>
-            <small class="text-red-500" *ngIf="signupForm.get('phone')?.errors?.['pattern']">Please enter a valid phone number (e.g., +212123456789).</small>
+          <div *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Please enter a valid phone number (e.g., +212123456789).</small>
           </div>
           <div class="relative">
             <div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
@@ -78,43 +78,63 @@
               <span class="text-gray-600">+212</span>
             </div>
             <input type="tel"
-                   formControlName="phone"
-                   class="w-full pl-24 pr-4 py-3 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                   placeholder="Enter your phone number">
+                   formControlName="phoneNumber"
+                   class="w-full pl-24 pr-4 py-3 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Enter your phone number" maxlength="9">
           </div>
         </div>
-        <!-- Password Input -->
         <div>
-          <label class="text-sm font-medium mb-1 inline-block">Password</label>
-          <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="inline-block ml-4">
+          <label class="text-sm font-medium mb-1 mr-2 inline-block">CIN (Carte d'Identité Nationale)</label>
+          <div *ngIf="signupForm.get('cin')?.invalid && signupForm.get('cin')?.touched" class="inline-block ">
+            <small class="text-red-500" *ngIf="signupForm.get('cin')?.errors?.['required']">CIN is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('cin')?.errors?.['pattern']">valid CIN (format: 12345678 or AA123456).</small>
+          </div>
+          <input type="text" formControlName="cin"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="Enter your CIN number" maxlength="8">
+        </div>
+
+
+
+
+
+        <div class="flex justify-between space-x-4">
+        <!-- Password Input -->
+        <div class="w-3/6">
+          <label class="text-sm font-medium mb-1 mr-2 inline-block">Password</label>
+          <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="inline-block ">
             <small class="text-red-500" *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
-            <small class="text-red-500" *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('password')?.errors?.['minlength']">8 characters long.</small>
           </div>
           <input type="password" formControlName="password"
-                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="••••••••">
         </div>
 
         <!-- Retype Password Input -->
-        <div>
-          <label class="text-sm font-medium mb-1 inline-block">Retype Password</label>
+        <div class="w-3/6">
+          <label class="text-sm font-medium mb-1 mr-2 inline-block">Retype Password</label>
           <!-- Password Mismatch Error -->
-          <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('retypePassword')?.touched" class="inline-block ml-4">
-            <small class="text-red-500">Passwords do not match.</small>
+          <div *ngIf="signupForm.hasError('passwordMismatch') && signupForm.get('retypePassword')?.touched" class="inline-block ">
+            <small class="text-red-500"> no match.</small>
           </div>
-          <div *ngIf="signupForm.get('retypePassword')?.invalid && signupForm.get('retypePassword')?.touched" class="inline-block ml-4">
-            <small class="text-red-500" *ngIf="signupForm.get('retypePassword')?.errors?.['required']">Retyping password is required. * </small>
+          <div *ngIf="signupForm.get('retypePassword')?.invalid && signupForm.get('retypePassword')?.touched" class="inline-block ">
+            <small class="text-red-500" *ngIf="signupForm.get('retypePassword')?.errors?.['required']">required. * </small>
           </div>
           <input type="password" formControlName="retypePassword"
-                 class="w-full py-3 px-2 border border-gray-300 rounded-s focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="••••••••">
+        </div>
         </div>
 
 
 
         <!-- Terms Checkbox -->
         <div class="flex items-center">
-          <input type="checkbox" formControlName="terms" id="terms"
+          <input type="checkbox"
+                 formControlName="terms"
+                 id="terms"
+                 (click)="openTermsModal($event)"
                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
           <label for="terms" class="ml-2 text-sm text-gray-600 inline-block">
             I accepted all terms & conditions
@@ -126,7 +146,7 @@
         <!-- Submit Button -->
 
         <button type="submit"
-                class="w-full bg-blue-600 text-white py-3 px-2 rounded-s hover:bg-blue-700 transition-colors flex items-center justify-start"
+                class="w-full bg-blue-600 text-white py-3 px-2 rounded-[2px] hover:bg-blue-700 transition-colors flex items-center justify-start"
                 [disabled]="!signupForm.valid || isLoading"
                 [ngStyle]="{'cursor': !signupForm.valid || isLoading ? 'not-allowed' : 'pointer'}">
           <!-- Spinner inside the button, left of the text -->
@@ -139,6 +159,9 @@
       </form>
     </div>
   </div>
-
-
 </div>
+<app-terms-of-service
+  *ngIf="showTermsModal"
+  (closeModal)="closeTermsModal()"
+  (accept)="acceptTerms()">
+</app-terms-of-service>

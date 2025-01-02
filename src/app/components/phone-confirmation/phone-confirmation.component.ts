@@ -1,25 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ToastServiceService} from "../../core/services/toast-service.service";
 import {VerificationService} from "../../service/verification.service";
-import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ToastServiceService} from "../../core/services/toast-service.service";
 
 @Component({
-  selector: 'app-email-confirmation',
+  selector: 'app-phone-confirmation',
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    FormsModule,
-    NgForOf,
-    ReactiveFormsModule,
-    NgIf
-  ],
-  templateUrl: './email-confirmation.component.html',
-  styleUrl: './email-confirmation.component.css'
+    imports: [
+        FormsModule,
+        NgForOf,
+        NgIf,
+        NgOptimizedImage,
+        ReactiveFormsModule
+    ],
+  templateUrl: './phone-confirmation.component.html',
+  styleUrl: './phone-confirmation.component.css'
 })
-export class EmailConfirmationComponent implements OnInit{
-  email?: string;
+export class PhoneConfirmationComponent {
+  phone?: string;
   isLoading: boolean = false;
   form: FormGroup;
 
@@ -45,7 +45,7 @@ export class EmailConfirmationComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.email = params['email'];
+      this.phone = params['phone'];
     });
   }
 
@@ -128,21 +128,17 @@ export class EmailConfirmationComponent implements OnInit{
 
   verifyCode(): void {
     console.log(this.digits.value)
-    if (this.email && this.isCodeComplete()) {
+    if (this.phone && this.isCodeComplete()) {
       this.isLoading = true;
       this.toastService.showToast('Verifying code...', 'info');
 
       setTimeout(() => {
-        if (this.email) {
-          this.verificationService.verifyEmail(this.email, this.verificationCode).subscribe({
+        if (this.phone) {
+          this.verificationService.verifyPhone(this.phone, this.verificationCode).subscribe({
             next: (response) => {
-              console.error(response);
               this.isLoading = false;
               this.toastService.showToast('Email verified successfully!', 'success');
-              this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { email: response.data } }).then(() => {
-              }).catch((err) => {
-                console.error('Navigation error:', err);
-              });            },
+              },
             error: (err) => {
               this.isLoading = false;
               console.error('Error occurred:', err); // Log the entire error
@@ -157,4 +153,5 @@ export class EmailConfirmationComponent implements OnInit{
       }, 3000);
     }
   }
+
 }
