@@ -1,0 +1,93 @@
+
+.header {
+  width: 100%;
+  background-color: #343a40;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+
+.header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+
+.header nav img {
+  height: 40px;
+  width: auto;
+}
+
+
+
+.navbar-elements-il {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+}
+
+.navbar-elements-il li {
+  margin: 0;
+}
+
+.navbar-elements-il a {
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f8f9fa;
+  transition: color 0.3s ease;
+}
+
+
+.navbar-elements a:hover {
+  color: white;
+}
+
+
+div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.login-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #007bff;
+  background: transparent;
+  border: 2px solid #007bff;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background: #007bff;
+  color: #343a40;
+}
+
+
+.contact-us-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #343a40;
+  background: #007bff;
+  border: none;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.contact-us-button:hover {
+  background: white;
+  color: #343a40;
+}
