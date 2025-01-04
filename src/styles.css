@@ -80,3 +80,42 @@ html {
 .hover-lift:hover {
   transform: translateY(-2px);
 }
+
+/* Palette de couleurs */
+:root {
+  --azure: #007bff;
+  --azure-dark: #0598d4;
+  --mint-green: #20c997;
+  --mint-green-dark: #18a77b;
+  --white: #ffffff;
+  --seasalt: #f8f9fa;
+}
+
+/* Classes personnalisées */
+.bg-azure {
+  background-color: var(--azure);
+}
+
+.bg-azure-dark {
+  background-color: var(--azure-dark);
+}
+
+.bg-mint-green {
+  background-color: var(--mint-green);
+}
+
+.bg-mint-green-dark {
+  background-color: var(--mint-green-dark);
+}
+
+.bg-seasalt {
+  background-color: var(--seasalt);
+}
+
+.text-azure {
+  color: var(--azure);
+}
+
+.text-mint-green {
+  color: var(--mint-green);
+}
