@@ -1,0 +1,13 @@
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  font-size: 1.1em;
+  color: #555;
+}

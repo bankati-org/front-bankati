@@ -1,7 +1,7 @@
 import {Status} from "../enum/status";
 import {Role} from "../enum/role";
 
-export interface UserResponseDto {
+export interface UserResponse {
   firstName: string;
   lastName: string;
   email: string;

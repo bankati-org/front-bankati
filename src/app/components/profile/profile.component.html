@@ -1,0 +1,25 @@
+<div *ngIf="isLoading; else content">
+  <p>Loading user profile...</p>
+</div>
+
+<ng-template #content>
+  <div *ngIf="userProfile; else error">
+    <h2>User Profile</h2>
+    <p><strong>Username:</strong> {{ userProfile.firstName }}</p>
+    <p><strong>Email:</strong> {{ userProfile.email }}</p>
+    <p><strong>Roles:</strong> {{ userProfile.role }}</p>
+  </div>
+
+
+  <!-- navbar.component.html -->
+  <nav>
+    <a routerLink="/app/profile">Profile</a>
+    <button (click)="logout()">Logout</button>
+  </nav>
+
+  <ng-template #error>
+    <div *ngIf="errorMessage">
+      <p class="error">{{ errorMessage }}</p>
+    </div>
+  </ng-template>
+</ng-template>
