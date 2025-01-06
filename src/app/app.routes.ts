@@ -18,10 +18,7 @@ export const routes: Routes = [
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
-      { path: 'profile', component: ProfileComponent }, // Add the profile route
-
-
-      {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
+      {path: 'profile', component: ProfileComponent }, // Add the profile route
       {path : 'wallet' , component : WalletComponent},
       {path:'crypto-wallet',component: CryptoWalletComponent}
     ]

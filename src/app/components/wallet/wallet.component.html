@@ -55,7 +55,7 @@
             <i class="far fa-bell text-slate-600 text-xl"></i>
             <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
-          <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+          <button (click)="openTransferDialog()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
             <i class="fas fa-plus mr-2"></i>
             New Transfer
           </button>
@@ -88,10 +88,10 @@
                 'fas fa-coins text-orange-500': balance.currencyCode === 'MAD'
               }"></i>
             </div>
-            <span class="text-lg font-semibold text-slate-600">{{ balance.currencyCode }}</span>
+            <span class="text-lg font-semibold text-slate-600">{{ balance.currency }}</span>
           </div>
           <div class="text-2xl font-bold text-slate-800">
-            {{ balance.balance | number: '1.2-2' }}
+            {{ balance.balance | number: '1.2-2' }} {{balance.currency}}
           </div>
         </div>
       </div>

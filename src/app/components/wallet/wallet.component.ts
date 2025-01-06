@@ -4,6 +4,10 @@ import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf, SlicePipe} from '@angular
 import {ExchangeChartComponent} from "../exchange-chart-component/exchange-chart-component.component";
 import {WalletService} from "../../service/wallet-api.service";
 import {isToday, parseISO, subDays, subMonths} from "date-fns"; // Importer CommonModule
+import { MatDialog } from '@angular/material/dialog';
+import { TransferDialogComponent } from '../transfer-dialog.component/transfer-dialog.component';
+import { TransferService } from '../../service/transfer.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -39,7 +43,10 @@ export class WalletComponent implements OnInit {
     this.visibleTransactions = this.showAllTransactions ? this.transactions.length : 5;
   }
 
-  constructor(private walletService: WalletService) {}
+  constructor(
+    private walletService: WalletService,  private dialog: MatDialog,
+    private transferService: TransferService,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.fetchBalances();
@@ -250,10 +257,10 @@ export class WalletComponent implements OnInit {
   }
 
   fetchBalances(): void {
-    this.walletService.getWallet(this.userId).subscribe({
-      next: (wallet) => {
-        console.log('Portefeuille reçu :', wallet); // Vérifiez la structure de l'objet Wallet
-        this.balances = wallet.currencies; // Extraire les données des devises (ou ajuster selon la clé réelle)
+    this.walletService.getFiatWallets(this.userId).subscribe({
+      next: (walletFiats) => {
+        console.log('Portefeuille reçu :', walletFiats); // Vérifiez la structure de l'objet Wallet
+        this.balances = walletFiats; // Extraire les données des devises (ou ajuster selon la clé réelle)
         console.log('Balances extraites :', this.balances); // Vérifiez le contenu des balances
       },
       error: (error) => {
@@ -270,24 +277,44 @@ export class WalletComponent implements OnInit {
     { icon: 'user', label: 'Something' },
   ];
 
-  // balances = [
-  //   { currency: 'Morrocan Dirham', amount: '1568 Dhs', transactions: '34' },
-  //   { currency: 'Euro', amount: '€542.02', transactions: '34' },
-  //   { currency: 'American Dollar', amount: '$654', transactions: '34' }
-  // ];
+  openTransferDialog(): void {
+    const dialogRef = this.dialog.open(TransferDialogComponent, {
+      width: '500px',
+      panelClass: 'custom-dialog-container'
+    });
 
-  periods = ['Today', 'last week', 'last month', 'last year'];
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const isSameCurrency = result.fromCurrency === result.toCurrency;
 
+        if (isSameCurrency) {
+          const request = {
+            fromUserId: result.fromUserId,
+            toUserId: result.toUserId,
+            currency: result.fromCurrency,
+            amount: result.amount
+          };
 
-  // transactions = [
-  //   {
-  //     type: 'Online payment',
-  //     date: '03 January, 12:56PM',
-  //     amount: '+500Dhs',
-  //     iconBg: 'bg-red-500',
-  //     amountColor: 'text-green-500'
-  //   },
-  //   // Add more transactions as needed
-  // ];
+          this.transferService.transfer(request).subscribe({
+            next: () => this.toastr.success('Transfer completed successfully'),
+            error: (error) => this.toastr.error('Transfer failed')
+          });
+        } else {
+          const request = {
+            fromUserId: result.fromUserId,
+            toUserId: result.toUserId,
+            fromCurrency: result.fromCurrency,
+            toCurrency: result.toCurrency,
+            amount: result.amount
+          };
+
+          this.transferService.transferMultiCurrency(request).subscribe({
+            next: () => this.toastr.success('Multi-currency transfer completed successfully'),
+            error: (error) => this.toastr.error('Transfer failed')
+          });
+        }
+      }
+    }); // Fermeture du subscribe
+  }
 
 }
