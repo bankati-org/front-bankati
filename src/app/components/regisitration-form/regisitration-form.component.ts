@@ -143,9 +143,13 @@ export class RegistrationFormComponent {
   }
 
 
-  signInWithGoogle(): void {
-    this.toastService.showToast('Google sign-in feature coming soon!', 'info');
-    console.log('Sign in with Google clicked');
+  signIn(): void {
+    // Show redirecting message
+    this.toastService.showToast('Redirecting to login...', 'success');
+    // Wait 1 second before redirecting
+    setTimeout(() => {
+      this.router.navigate(['/app/login']); // Navigate to the login route
+    }, 1000); // 1000ms = 1 second
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
