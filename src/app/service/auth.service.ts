@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { Observable } from "rxjs";
-import { UserRequest } from "../model/UserRequest";
+import {BehaviorSubject, Observable} from "rxjs";
+import {UserAgentRequestDto, UserRequest} from "../model/UserRequest";
 import { ApiResponse } from "../model/ApiResponse";
 import { UserResponse } from "../model/UserResponse";
 import {environment} from "../../environments/environment";
 import {LoginRequest} from "../model/LoginRequest";
 import {AuthResponse} from "../model/AuthResponse";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}api/auth/`;
+  private apiUrlAgent = `${environment.apiUrl}api/agent/`; // Base URL for agent endpoints
+  private userRoleSubject = new BehaviorSubject<string>('');
+  userRole$ = this.userRoleSubject.asObservable();
+
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +41,48 @@ export class AuthService {
   }
   logout(): Observable<ApiResponse<string>> {
     return this.http.post<ApiResponse<string>>(`${this.apiUrl}logout`, {});
+  }
+
+  registerClientByAgent(
+    userAgentRequestDto: UserAgentRequestDto
+  ): Observable<ApiResponse<UserResponse>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Set content type to JSON
+    });
+
+    return this.http.post<ApiResponse<UserResponse>>(
+      `${this.apiUrlAgent}register`,
+      userAgentRequestDto,
+      { headers }
+    );
+  }
+
+  decodeToken(token: string): void {
+    try {
+      const decodedToken: any = jwtDecode(token);
+      const role = decodedToken.role; // Extract the role from the JWT payload
+
+      // Store the role in localStorage
+      localStorage.setItem('userRole', role);
+
+      // Update the BehaviorSubject
+      this.userRoleSubject.next(role);
+    } catch (error) {
+      console.error('Error decoding JWT:', error);
+    }
+  }
+
+  // Get the current user role
+  loadUserRole(): void {
+    const role = localStorage.getItem('userRole'); // Retrieve the role from localStorage
+    if (role) {
+      this.userRoleSubject.next(role); // Update the BehaviorSubject
+    }
+  }
+
+  clearUserRole(): void {
+    localStorage.removeItem('userRole'); // Clear the role from localStorage
+    this.userRoleSubject.next(''); // Reset the BehaviorSubject
   }
 
 }
