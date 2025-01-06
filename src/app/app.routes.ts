@@ -5,6 +5,7 @@ import {PhoneConfirmationComponent} from "./components/phone-confirmation/phone-
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {WalletComponent} from "./components/wallet/wallet.component";
 
 
 export const routes: Routes = [
@@ -19,6 +20,8 @@ export const routes: Routes = [
       { path: 'profile', component: ProfileComponent }, // Add the profile route
 
 
+      {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
+      {path : 'wallet' , component : WalletComponent}
     ]
   }
 ];

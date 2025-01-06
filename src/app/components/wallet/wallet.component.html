@@ -1,0 +1,150 @@
+<div class="min-h-screen bg-slate-50">
+  <!-- Sidebar -->
+  <aside class="fixed h-screen w-64 bg-slate-900 text-white">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold">Bankati</h1>
+    </div>
+
+    <nav class="mt-8">
+      <div class="px-4 space-y-2">
+        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
+          <i class="fas fa-home w-5"></i>
+          <span class="ml-3">Dashboard</span>
+        </a>
+        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
+          <i class="fas fa-wallet w-5"></i>
+          <span class="ml-3">Accounts</span>
+        </a>
+        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
+          <i class="fas fa-exchange-alt w-5"></i>
+          <span class="ml-3">Transfers</span>
+        </a>
+        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
+          <i class="fas fa-chart-line w-5"></i>
+          <span class="ml-3">Analytics</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="absolute bottom-0 w-full p-6">
+      <div class="border-t border-slate-700 pt-4">
+        <div class="flex items-center">
+          <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+            JD
+          </div>
+          <div class="ml-3">
+            <p class="text-sm font-medium">John Doe</p>
+            <p class="text-xs text-gray-400">john.doe&#64;email.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="ml-64">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-sm px-8 py-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold text-slate-800">Wallet Dashboard</h2>
+        <div class="flex items-center space-x-6">
+          <button class="relative p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <i class="far fa-envelope text-slate-600 text-xl"></i>
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <button class="relative p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <i class="far fa-bell text-slate-600 text-xl"></i>
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+            <i class="fas fa-plus mr-2"></i>
+            New Transfer
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="p-8">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-slate-800 mb-2">Welcome back, John Doe</h1>
+        <p class="text-slate-500">Here's an overview of your accounts</p>
+      </div>
+
+      <!-- Balance Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div *ngFor="let balance of balances"
+             class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+          <div class="flex items-center justify-between mb-4">
+            <div class="p-3 rounded-lg" [ngClass]="{
+              'bg-blue-50': balance.currencyCode === 'USD',
+              'bg-green-50': balance.currencyCode === 'EUR',
+              'bg-purple-50': balance.currencyCode === 'GBP',
+              'bg-orange-50': balance.currencyCode === 'MAD'
+            }">
+              <i class="text-2xl" [ngClass]="{
+                'fas fa-dollar-sign text-blue-500': balance.currencyCode === 'USD',
+  'fa-solid fa-euro-sign text-green-500': balance.currencyCode === 'EUR',
+                'fas fa-pound-sign text-purple-500': balance.currencyCode === 'GBP',
+                'fas fa-coins text-orange-500': balance.currencyCode === 'MAD'
+              }"></i>
+            </div>
+            <span class="text-lg font-semibold text-slate-600">{{ balance.currencyCode }}</span>
+          </div>
+          <div class="text-2xl font-bold text-slate-800">
+            {{ balance.balance | number: '1.2-2' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Exchange Rate Chart -->
+        <div class="lg:col-span-2">
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6">Exchange Rates</h2>
+            <app-exchange-chart></app-exchange-chart>
+          </div>
+        </div>
+
+        <!-- Transactions -->
+        <div class="lg:col-span-1">
+          <div class="bg-white p-6 rounded-xl shadow-sm">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-xl font-semibold text-slate-800">Recent Transactions</h2>
+              <button class="text-blue-500 hover:text-blue-600 text-sm font-medium" (click)="toggleTransactions()">
+                {{ showAllTransactions ? 'View Less →' : 'View All →' }}
+              </button>
+            </div>
+
+            <div class="space-y-4">
+              <div *ngFor="let transaction of transactions | slice:0:visibleTransactions"
+                   class="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                    <span class="flag-icon w-full h-full block"
+                          [ngClass]="'fi fi-' + getFlagCode(transaction.currency)">
+                    </span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-slate-800">
+                      {{ transaction.type === 'CREDIT' ? 'Received' : 'Sent' }}
+                    </p>
+                    <p class="text-sm text-slate-500">
+                      {{ transaction.timestamp | date: 'MMM d, h:mm a' }}
+                    </p>
+                  </div>
+                </div>
+                <div [ngClass]="{'text-green-500': transaction.type === 'CREDIT', 'text-red-500': transaction.type === 'DEBIT'}"
+                     class="text-right">
+                  <p class="font-semibold">
+                    {{ transaction.type === 'CREDIT' ? '+' : '-' }}{{ transaction.amount | number: '1.2-2' }}
+                  </p>
+                  <p class="text-sm text-slate-500">{{ transaction.currency }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
