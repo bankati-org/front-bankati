@@ -6,7 +6,7 @@ export interface ExchangeRates {
   [key: string]: number;
 }
 export interface WalletCurrency {
-  currency: string;
+  currencyCode: string;
   balance: number;
 }
 @Injectable({

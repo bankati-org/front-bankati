@@ -1,47 +1,49 @@
-<div class="min-h-screen bg-slate-50">
+<div class="flex">
+  <app-sidebar></app-sidebar>
+<div class="bg-slate-50 w-full">
   <!-- Sidebar -->
-  <aside class="fixed h-screen w-64 bg-slate-900 text-white">
-    <div class="p-6">
-      <h1 class="text-2xl font-bold">Bankati</h1>
-    </div>
+<!--  <aside class="fixed h-screen w-64 bg-slate-900 text-white">-->
+<!--    <div class="p-6">-->
+<!--      <h1 class="text-2xl font-bold">Bankati</h1>-->
+<!--    </div>-->
 
-    <nav class="mt-8">
-      <div class="px-4 space-y-2">
-        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
-          <i class="fas fa-home w-5"></i>
-          <span class="ml-3">Dashboard</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
-          <i class="fas fa-wallet w-5"></i>
-          <span class="ml-3">Accounts</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
-          <i class="fas fa-exchange-alt w-5"></i>
-          <span class="ml-3">Transfers</span>
-        </a>
-        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">
-          <i class="fas fa-chart-line w-5"></i>
-          <span class="ml-3">Analytics</span>
-        </a>
-      </div>
-    </nav>
+<!--    <nav class="mt-8">-->
+<!--      <div class="px-4 space-y-2">-->
+<!--        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">-->
+<!--          <i class="fas fa-home w-5"></i>-->
+<!--          <span class="ml-3">Dashboard</span>-->
+<!--        </a>-->
+<!--        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">-->
+<!--          <i class="fas fa-wallet w-5"></i>-->
+<!--          <span class="ml-3">Accounts</span>-->
+<!--        </a>-->
+<!--        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">-->
+<!--          <i class="fas fa-exchange-alt w-5"></i>-->
+<!--          <span class="ml-3">Transfers</span>-->
+<!--        </a>-->
+<!--        <a class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors">-->
+<!--          <i class="fas fa-chart-line w-5"></i>-->
+<!--          <span class="ml-3">Analytics</span>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </nav>-->
 
-    <div class="absolute bottom-0 w-full p-6">
-      <div class="border-t border-slate-700 pt-4">
-        <div class="flex items-center">
-          <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
-            JD
-          </div>
-          <div class="ml-3">
-            <p class="text-sm font-medium">John Doe</p>
-            <p class="text-xs text-gray-400">john.doe&#64;email.com</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </aside>
+<!--    <div class="absolute bottom-0 w-full p-6">-->
+<!--      <div class="border-t border-slate-700 pt-4">-->
+<!--        <div class="flex items-center">-->
+<!--          <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">-->
+<!--            JD-->
+<!--          </div>-->
+<!--          <div class="ml-3">-->
+<!--            <p class="text-sm font-medium">John Doe</p>-->
+<!--            <p class="text-xs text-gray-400">john.doe&#64;email.com</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </aside>-->
 
-  <div class="ml-64">
+  <div class="">
     <!-- Top Navigation -->
     <nav class="bg-white shadow-sm px-8 py-4">
       <div class="flex justify-between items-center">
@@ -83,15 +85,16 @@
             }">
               <i class="text-2xl" [ngClass]="{
                 'fas fa-dollar-sign text-blue-500': balance.currencyCode === 'USD',
-  'fa-solid fa-euro-sign text-green-500': balance.currencyCode === 'EUR',
-                'fas fa-pound-sign text-purple-500': balance.currencyCode === 'GBP',
-                'fas fa-coins text-orange-500': balance.currencyCode === 'MAD'
+             'fa-solid fa-euro-sign text-green-500': balance.currencyCode === 'EUR',
+                'fas fa-coins text-orange-500': balance.currencyCode === 'MAD',
+                 'fas fa-pound-sign text-purple-500': balance.currencyCode === 'GBP',
+
               }"></i>
             </div>
-            <span class="text-lg font-semibold text-slate-600">{{ balance.currency }}</span>
+            <span class="text-lg font-semibold text-slate-600">{{ balance.currencyCode }}</span>
           </div>
           <div class="text-2xl font-bold text-slate-800">
-            {{ balance.balance | number: '1.2-2' }} {{balance.currency}}
+            {{ balance.balance | number: '1.2-2' }}
           </div>
         </div>
       </div>
@@ -148,3 +151,4 @@
     </main>
   </div>
 </div>
+ </div>

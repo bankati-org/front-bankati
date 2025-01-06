@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TransferDialogComponent } from '../transfer-dialog.component/transfer-dialog.component';
 import { TransferService } from '../../service/transfer.service';
 import { ToastrService } from 'ngx-toastr';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { ToastrService } from 'ngx-toastr';
     DecimalPipe,
     DatePipe,
     NgClass,
-    SlicePipe
+    SlicePipe,
+    SidebarComponent
   ],
   styleUrl: './wallet.component.css'
 })
@@ -49,8 +51,10 @@ export class WalletComponent implements OnInit {
     private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.fetchBalances();
-    this.fetchTransactions();
+    setInterval(() => {
+      this.fetchBalances();
+      this.fetchTransactions();
+    }, 3000);
 
   }
 
