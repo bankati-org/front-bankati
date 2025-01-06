@@ -140,6 +140,11 @@ export class PhoneConfirmationComponent {
               console.error(response);
               this.isLoading = false;
               this.toastService.showToast('Phone verified successfully!', 'success');
+              this.router.navigate(['/app/login']).then(() => {
+                console.log('Navigation successful!');
+              }).catch((error) => {
+                console.error('Navigation error:', error);
+              });
               },
             error: (err) => {
               this.isLoading = false;

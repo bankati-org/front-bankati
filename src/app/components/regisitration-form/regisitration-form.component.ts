@@ -12,8 +12,8 @@ import {NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ToastComponent} from "../toast/toast.component";
 import {ToastServiceService} from "../../core/services/toast-service.service";
 import {Router} from "@angular/router";
-import { RegistrationService } from '../../service/registration.service';
-import {RegistrationDto} from "../../model/Registration-dto";
+import { AuthService } from '../../service/auth.service';
+import {UserRequest} from "../../model/UserRequest";
 import {TermsOfServiceComponent} from "../terms-of-service/terms-of-service.component";
 
 @Component({
@@ -81,7 +81,7 @@ export class RegistrationFormComponent {
     private fb: FormBuilder,
     private router: Router,
     private toastService: ToastServiceService,
-    private registrationService: RegistrationService
+    private authService: AuthService
   ) {
     this.signupForm = this.fb.group({
       cin: ['', [
@@ -113,38 +113,43 @@ export class RegistrationFormComponent {
       this.isLoading = true;
       this.toastService.showToast('Processing registration...', 'info');
 
-      // Add a delay of 3 seconds (3000ms)
-      setTimeout(() => {
-        const registrationDto: RegistrationDto = this.signupForm.value;
-        registrationDto.phoneNumber = '+212' + registrationDto.phoneNumber;
+      const registrationDto: UserRequest = this.signupForm.value;
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+      const file = fileInput?.files ? fileInput.files[0] : null;
 
-        this.registrationService.registerUser(registrationDto).subscribe({
-          next: (response) => {
-            console.log(response)
+      if (!file) {
+        this.isLoading = false;
+        this.toastService.showToast('Please upload a valid file.', 'error');
+        return;
+      }
 
-            this.isLoading = false;
-            this.toastService.showToast(`Registration successful! Welcome ${response.data.email}`, 'success');
-            this.signupForm.reset();
-            this.router.navigate(['/app/email-confirmation'], { queryParams: { email: response.data.email } });
-          },
-          error: (err) => {
-            this.isLoading = false;
-            console.error('Error occurred:', err);
-            // Show the error message from the backend
-            const errorMessage = err.error?.message || 'Registration failed. Please try again.';
-            this.toastService.showToast(errorMessage, 'error');
-          }
-        });
-      }, 3000); // Wait 3 seconds before sending the request
+      this.authService.registerUser(registrationDto, file).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.toastService.showToast(`Registration successful! Welcome ${response.data.email}`, 'success');
+          this.signupForm.reset();
+          this.router.navigate(['/app/email-confirmation'], { queryParams: { email: response.data.email } });
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Error occurred:', err);
+          const errorMessage = err.error?.message || 'Registration failed. Please try again.';
+          this.toastService.showToast(errorMessage, 'error');
+        }
+      });
     } else {
       this.markFormGroupTouched(this.signupForm);
     }
   }
 
 
-  signInWithGoogle(): void {
-    this.toastService.showToast('Google sign-in feature coming soon!', 'info');
-    console.log('Sign in with Google clicked');
+  signIn(): void {
+    // Show redirecting message
+    this.toastService.showToast('Redirecting to login...', 'success');
+    // Wait 1 second before redirecting
+    setTimeout(() => {
+      this.router.navigate(['/app/login']); // Navigate to the login route
+    }, 1000); // 1000ms = 1 second
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
