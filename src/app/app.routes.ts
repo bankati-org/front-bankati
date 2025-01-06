@@ -8,6 +8,7 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {WalletComponent} from "./components/wallet/wallet.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.component";
+import {AddClientComponent} from "./components/add-client/add-client.component";
 
 
 export const routes: Routes = [
@@ -19,17 +20,16 @@ export const routes: Routes = [
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
-      { path: 'profile', component: ProfileComponent }, // Add the profile route
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path : 'wallet' , component : WalletComponent} ,
       {
-        path: 'app/dashboard',
+        path: 'dashboard',
         component: DashboardComponent,
         children: [
           { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Default child route
           { path: 'profile', component: ProfileComponent },
           { path: 'wallet', component: WalletComponent },
-          // { path: 'crypto', component:  },
+          { path: 'add-client', component: AddClientComponent },
         ]
       },
     ]

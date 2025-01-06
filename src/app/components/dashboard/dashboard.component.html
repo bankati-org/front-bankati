@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="sidebar">
+    <!-- Sidebar Links -->
+    <ul>
+      <li><a routerLink="profile">Profile</a></li>
+      <li><a routerLink="wallet">Wallet</a></li>
+      <li><a routerLink="add-client">Add Client</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <!-- Child routes will be rendered here -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
