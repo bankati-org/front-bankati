@@ -49,8 +49,10 @@ export class LoginFormComponent {
             // Store tokens in local storage if user is active
             localStorage.setItem('accessToken', response.data.token);
             localStorage.setItem('refreshToken', response.data.refreshToken);
+            this.authService.decodeToken(response.data.token); // Decode the token and set the role
+
             this.toastService.showToast(response.message, 'success');
-            this.router.navigate(['/app/profile']).then(() => {
+            this.router.navigate(['/app/dashboard/profile']).then(() => {
               console.log('Navigation to profile page successful!');
               this.loginForm.reset(); // Reset the form after successful navigation
             });
@@ -59,6 +61,11 @@ export class LoginFormComponent {
             this.router.navigate(['/app/email-confirmation'] ,   { queryParams: { email: response.data.userResponseDto.email }}).then(() => {
             });
           } else if (userStatus === Status.EMAIL_VERIFIED) {
+            this.toastService.showToast("need to confirm you phone", 'warning');
+            this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
+            });
+          }
+          else if (userStatus === Status.PENDING_PASS) {
             this.toastService.showToast("need to confirm you phone", 'warning');
             this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
             });
