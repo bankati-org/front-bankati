@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {ToastServiceService} from "../../core/services/toast-service.service";
 import {NgIf} from "@angular/common";
+import {Status} from "../../enum/status";
 
 @Component({
   selector: 'app-login-form',
@@ -37,19 +38,35 @@ export class LoginFormComponent {
       this.toastService.showToast('Logging in...', 'info');
 
       const loginRequest = this.loginForm.value;
-
       this.authService.login(loginRequest).subscribe({
         next: (response) => {
           console.log(response);
           this.isLoading = false;
-          // Store tokens in local storage
-          localStorage.setItem('accessToken', response.data.token);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
-          this.toastService.showToast(response.message, 'success');
-          this.router.navigate(['/app/profile']).then(() => {
-            console.log('Navigation to root page successful!');
-            this.loginForm.reset(); // Reset the form after successful navigation
-          });},
+
+          // Check the user status and store tokens only if the user is active
+          const userStatus = response.data.userResponseDto.status;
+          if (userStatus === Status.ACTIVE) {
+            // Store tokens in local storage if user is active
+            localStorage.setItem('accessToken', response.data.token);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            this.toastService.showToast(response.message, 'success');
+            this.router.navigate(['/app/profile']).then(() => {
+              console.log('Navigation to profile page successful!');
+              this.loginForm.reset(); // Reset the form after successful navigation
+            });
+          } else if (userStatus === Status.REGISTERED) {
+            this.toastService.showToast("need to confirm you email", 'warning');
+            this.router.navigate(['/app/email-confirmation'] ,   { queryParams: { email: response.data.userResponseDto.email }}).then(() => {
+            });
+          } else if (userStatus === Status.EMAIL_VERIFIED) {
+            this.toastService.showToast("need to confirm you phone", 'warning');
+            this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
+            });
+          }
+          else {
+            this.toastService.showToast('Your account is blocked. Please contact admin/agent.', 'error');
+          }
+        },
         error: (err) => {
           this.isLoading = false;
           console.error('Error occurred:', err);
@@ -57,6 +74,8 @@ export class LoginFormComponent {
           this.toastService.showToast(errorMessage, 'error');
         },
       });
+
+
     } else {
       this.markFormGroupTouched(this.loginForm);
     }
