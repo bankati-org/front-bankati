@@ -6,6 +6,7 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
 import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {WalletComponent} from "./components/wallet/wallet.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 
 export const routes: Routes = [
@@ -18,10 +19,18 @@ export const routes: Routes = [
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
       { path: 'profile', component: ProfileComponent }, // Add the profile route
-
-
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
-      {path : 'wallet' , component : WalletComponent}
+      {path : 'wallet' , component : WalletComponent} ,
+      {
+        path: 'app/dashboard',
+        component: DashboardComponent,
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Default child route
+          { path: 'profile', component: ProfileComponent },
+          { path: 'wallet', component: WalletComponent },
+          // { path: 'crypto', component:  },
+        ]
+      },
     ]
   }
 ];
