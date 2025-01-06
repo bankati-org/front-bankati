@@ -1,0 +1,169 @@
+<div class="flex h-screen">
+  <!-- Sidebar -->
+<app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-auto bg-slate-50">
+    <nav class="bg-white shadow-sm px-8 py-4">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold text-slate-800">Crypto Wallet Dashboard</h2>
+        <div class="flex items-center space-x-6">
+          <button class="relative p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <i class="far fa-envelope text-slate-600 text-xl"></i>
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <button class="relative p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <i class="far fa-bell text-slate-600 text-xl"></i>
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <button class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+            <i class="fas fa-plus mr-2"></i>
+            New Transfer
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div class="p-6">
+      <h1 class="text-3xl font-bold text-slate-800 mb-2">Welcome back, John Doe</h1>
+      <p class="text-slate-500">Here's an overview of your accounts</p>
+    </div>
+    <div class="p-6">
+      <!-- Crypto Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bitcoin Card -->
+        <div class="p-6 bg-white rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-medium">Bitcoin</h3>
+            <span class="text-gray-500">→</span>
+          </div>
+          <div class="mt-2">
+            <div class="text-2xl font-bold">$8703.93</div>
+            <div class="text-sm text-gray-500">0.089 BTC</div>
+          </div>
+        </div>
+
+        <!-- Ethereum Card -->
+        <div class="p-6 bg-white rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-medium">Ethereum</h3>
+            <span class="text-gray-500">→</span>
+          </div>
+          <div class="mt-2">
+            <div class="text-2xl font-bold">$6989.29</div>
+            <div class="text-sm text-gray-500">1.95 ETH</div>
+          </div>
+        </div>
+
+        <!-- Tether Card -->
+        <div class="p-6 bg-white rounded-lg shadow">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-medium">Tether</h3>
+            <span class="text-gray-500">→</span>
+          </div>
+          <div class="mt-2">
+            <div class="text-2xl font-bold">$1.95</div>
+            <div class="text-sm text-gray-500">1.95 USDT</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart and Exchange Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <!-- Price Chart -->
+        <div class="p-6 bg-white rounded-lg shadow">
+          <h2 class="text-lg font-medium mb-4">1 Bitcoin Equals</h2>
+          <div class="text-2xl font-bold">97,793.21 USD</div>
+          <div class="text-sm text-gray-500 mb-4">Jan 3, 12:19 PM</div>
+          <canvas id="priceChart" class="w-full h-[200px]"></canvas>
+          <div class="flex items-center justify-between mt-4">
+            <input type="text" value="0.089" class="w-32 p-2 border rounded" />
+            <span class="px-4">BTC</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            <input type="text" value="8703.93" class="w-32 p-2 border rounded" />
+            <span class="px-4">USD</span>
+          </div>
+        </div>
+
+        <!-- Exchange Form -->
+        <div class="p-6 bg-white rounded-lg shadow">
+          <h2 class="text-lg font-medium mb-4">Exchange cryptocurrency</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm text-gray-600 mb-2">Send</label>
+              <div class="flex gap-2">
+                <input type="number" value="0.000563" class="flex-1 p-2 border rounded" />
+                <select class="p-2 border rounded w-24">
+                  <option>BTC</option>
+                  <option>ETH</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm text-gray-600 mb-2">Receive</label>
+              <div class="flex gap-2">
+                <input type="number" value="0.00065" class="flex-1 p-2 border rounded" />
+                <select class="p-2 border rounded w-24">
+                  <option>ETH</option>
+                  <option>BTC</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="text-sm text-gray-600">
+              Available Bitcoin: 0.089 BTC
+            </div>
+
+            <button class="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              EXCHANGE
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Table -->
+      <div class="mt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Crypto market</h2>
+          <div class="relative">
+            <i data-lucide="search" class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input
+              type="search"
+              placeholder="Search for a cryptocurrency..."
+              class="pl-10 p-2 border rounded-lg w-64"
+            />
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Coin</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Price</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-t">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 bg-gray-200 rounded-full mr-3"></div>
+                  Bitcoin
+                </div>
+              </td>
+              <td class="px-6 py-4">$97,799.21</td>
+              <td class="px-6 py-4 text-right">
+                <button class="px-3 py-1 bg-blue-500 text-white rounded text-sm">
+                  BUY
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+

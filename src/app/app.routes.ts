@@ -6,6 +6,7 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
 import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {WalletComponent} from "./components/wallet/wallet.component";
+import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.component";
 
 
 export const routes: Routes = [
@@ -21,7 +22,8 @@ export const routes: Routes = [
 
 
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
-      {path : 'wallet' , component : WalletComponent}
+      {path : 'wallet' , component : WalletComponent},
+      {path:'crypto-wallet',component: CryptoWalletComponent}
     ]
   }
 ];
