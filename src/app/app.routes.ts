@@ -7,6 +7,7 @@ import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {WalletComponent} from "./components/wallet/wallet.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.component";
 
 
 export const routes: Routes = [
