@@ -12,6 +12,7 @@ import {AddClientComponent} from "./components/add-client/add-client.component";
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { AddClientByAdminComponent } from './components/add-client-by-admin/add-client-by-admin.component';
 import {PasswordComponent} from "./components/password/password.component";
+import {CreanceComponent} from "./components/creance/creance.component";
 
 
 export const routes: Routes = [
@@ -35,6 +36,7 @@ export const routes: Routes = [
           {path: 'admin/add-client', component: AddClientByAdminComponent},
           {path: 'admin/add-agent', component: AddAgentComponent},
           {path:'crypto-wallet',component: CryptoWalletComponent},
+          {path:'creance',component: CreanceComponent},
           { path: '', redirectTo: 'profile', pathMatch: 'full' } // Default child route
 
         ]
