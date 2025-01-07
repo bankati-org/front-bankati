@@ -66,7 +66,7 @@ export class LoginFormComponent {
             });
           }
           else if (userStatus === Status.PENDING_PASS) {
-            this.toastService.showToast("need to confirm you phone", 'warning');
+            this.toastService.showToast(response.data.message , 'warning');
             this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
             });
           }
@@ -97,7 +97,8 @@ export class LoginFormComponent {
     });
   }
   signInWithGoogle(): void {
-    this.toastService.showToast('Google sign-in feature coming soon!', 'info');
-    console.log('Sign in with Google clicked');
+    // Navigate to a specific route
+    this.router.navigate(['/app/register']); // Replace '/your-target-route' with your desired route
   }
+
 }

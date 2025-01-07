@@ -1,20 +1,20 @@
-<div class="bg-slate-900 h-screen flex">
+<div class="bg-white h-screen flex">
   <!-- Sidebar -->
-  <aside class="w-64 bg-slate-900 text-white flex flex-col">
+  <aside class="w-64 bg-white text-gray-800 flex flex-col border-r border-gray-200">
     <!-- Logo Section -->
-    <div class="p-4">
-      <h1 class="text-xl font-bold">bankati Logo</h1>
+    <div class="p-6">
+      <h1 class="text-xl font-bold text-gray-900">bankati Logo</h1>
     </div>
 
     <!-- Navigation Links -->
-    <nav class="mt-8 space-y-2 flex-1">
+    <nav class="mt-8 space-y-2 flex-1 px-4">
       <!-- Profile Link -->
       <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT || userRole === Role.CLIENT">
         <a
           routerLink="./profile"
-          class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors"
+          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
         >
-          <i class="fas fa-user w-5"></i>
+          <i class="fas fa-user w-5 text-gray-500"></i>
           <span class="ml-3">Profile</span>
         </a>
       </li>
@@ -23,9 +23,9 @@
       <li *ngIf="userRole === Role.CLIENT">
         <a
           routerLink="./wallet"
-          class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors"
+          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
         >
-          <i class="fas fa-wallet w-5"></i>
+          <i class="fas fa-wallet w-5 text-gray-500"></i>
           <span class="ml-3">Wallet</span>
         </a>
       </li>
@@ -34,39 +34,28 @@
       <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT">
         <a
           routerLink="./add-client"
-          class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors"
+          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
         >
-          <i class="fas fa-user-plus w-5"></i>
+          <i class="fas fa-user-plus w-5 text-gray-500"></i>
           <span class="ml-3">Add Client</span>
-        </a>
-      </li>
-
-      <!-- Settings Link (Example) -->
-      <li>
-        <a
-          href="#"
-          class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-slate-800 transition-colors"
-        >
-          <i class="fas fa-cog w-5"></i>
-          <span class="ml-3">Settings</span>
         </a>
       </li>
     </nav>
 
     <!-- User Profile Section -->
-    <div class="p-4 bg-slate-900 border-t border-gray-700">
-      <div class="flex items-center space-x-2">
+    <div class="p-4 bg-white border-t border-gray-200">
+      <div class="flex items-center space-x-3">
         <div class="w-8 h-8 bg-emerald-500 rounded-full"></div>
         <div>
-<!--          <div class="text-sm">{{ clientName }}</div>-->
-<!--          <div class="text-xs text-gray-400">{{ clientEmail }}</div>-->
+          <!-- <div class="text-sm font-medium text-gray-900">{{ clientName }}</div> -->
+          <!-- <div class="text-xs text-gray-500">{{ clientEmail }}</div> -->
         </div>
       </div>
     </div>
   </aside>
 
   <!-- Main Content -->
-  <div class="flex-1 p-6 bg-slate-800 text-white overflow-y-auto">
+  <div class="flex-1 p-8 bg-gray-50 text-gray-900 overflow-y-auto">
     <router-outlet></router-outlet>
   </div>
 </div>
