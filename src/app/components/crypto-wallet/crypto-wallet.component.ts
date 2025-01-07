@@ -90,23 +90,27 @@ export class CryptoWalletComponent {
   }
 
   fetchBalances(): void {
-    this.cryptoWalletService.getCryptoTransactions(this.userId).subscribe(wallet => {
-      const allBalances = wallet.map((item: any) => ({
-        symbol: item.currency,
-        balance: item.amount,
-        fiatValue: 0
-      }));
+    this.cryptoWalletService.getCryptoWallets(this.userId).subscribe({
+      next: (cryptoWallets: any[]) => {
+        this.balances = cryptoWallets.map(wallet => ({
+          symbol: wallet.currencyCode,
+          balance: wallet.balance,
+          fiatValue: 0
+        }));
 
-      this.balances = allBalances.slice(0, this.maxVisibleCards);
 
-
-      this.balances.forEach(balance => {
-        this.cryptoWalletService.getCryptoPrice(balance.symbol, 'USD').subscribe(price => {
-          balance.fiatValue = balance.balance * price;
+        this.balances.forEach(balance => {
+          this.cryptoWalletService.getCryptoPrice(balance.symbol, 'USD').subscribe(price => {
+            balance.fiatValue = balance.balance * price;
+          });
         });
-      });
+      },
+      error: (err) => {
+        console.error('Error fetching crypto wallets:', err);
+      }
     });
   }
+
 
   fetchTransactions(): void {
     this.cryptoWalletService.getCryptoTransactions(this.userId).subscribe(data => {

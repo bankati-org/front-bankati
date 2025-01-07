@@ -10,6 +10,9 @@ export class CryptoWalletService {
 
   constructor(private http: HttpClient) {}
 
+  getCryptoWallets(userId: number): Observable<any> {
+    return this.http.get(`http://localhost:8082/api/v1/wallets/crypto?userId=${userId}`);
+  }
 
   buyCrypto(userId: number, cryptoSymbol: string, fiatAmount: number, fiatCurrency: string): Observable<any> {
     const body = { userId, cryptoSymbol, fiatAmount, fiatCurrency };
