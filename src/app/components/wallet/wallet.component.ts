@@ -301,7 +301,10 @@ export class WalletComponent implements OnInit {
 
           this.transferService.transfer(request).subscribe({
             next: () => this.toastr.success('Transfer completed successfully'),
-            error: (error) => this.toastr.error('Transfer failed')
+            error: (error) => {
+              const errorMessage = error?.error?.message || 'An unknown error occurred';
+              this.toastr.error(errorMessage);
+            }
           });
         } else {
           const request = {
@@ -314,11 +317,15 @@ export class WalletComponent implements OnInit {
 
           this.transferService.transferMultiCurrency(request).subscribe({
             next: () => this.toastr.success('Multi-currency transfer completed successfully'),
-            error: (error) => this.toastr.error('Transfer failed')
+            error: (error) => {
+              const errorMessage = error?.error?.message || 'An unknown error occurred';
+              this.toastr.error(errorMessage);
+            }
           });
         }
       }
-    }); // Fermeture du subscribe
+    });
+ // Fermeture du subscribe
   }
 
 }
