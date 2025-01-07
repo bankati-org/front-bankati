@@ -1,61 +1,64 @@
-<div class="bg-white h-screen flex">
+<div class="flex h-screen bg-gray-100">
   <!-- Sidebar -->
-  <aside class="w-64 bg-white text-gray-800 flex flex-col border-r border-gray-200">
+  <aside class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg overflow-y-auto">
     <!-- Logo Section -->
-    <div class="p-6">
-      <h1 class="text-xl font-bold text-gray-900">bankati Logo</h1>
+    <div class="px-6 py-8 border-b border-gray-100">
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        bankati
+      </h1>
     </div>
 
-    <!-- Navigation Links -->
-    <nav class="mt-8 space-y-2 flex-1 px-4">
+    <!-- Navigation -->
+    <nav class="p-4 space-y-1">
+      <!-- Dashboard Link -->
+      <a class="flex items-center px-4 py-3 text-blue-600 bg-blue-50 rounded-lg group transition-colors">
+        <i class="fas fa-home w-5 h-5"></i>
+        <span class="ml-3 font-medium">Dashboard</span>
+      </a>
+
       <!-- Profile Link -->
-      <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT || userRole === Role.CLIENT">
-        <a
-          routerLink="./profile"
-          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-        >
-          <i class="fas fa-user w-5 text-gray-500"></i>
-          <span class="ml-3">Profile</span>
+      <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT || userRole === Role.CLIENT" class="list-none">
+        <a routerLink="./profile"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-user w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Profile</span>
         </a>
       </li>
 
       <!-- Wallet Link -->
-      <li *ngIf="userRole === Role.CLIENT">
-        <a
-          routerLink="./wallet"
-          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-        >
-          <i class="fas fa-wallet w-5 text-gray-500"></i>
-          <span class="ml-3">Wallet</span>
+      <li *ngIf="userRole === Role.CLIENT" class="list-none">
+        <a routerLink="./wallet"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-wallet w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Wallet</span>
         </a>
       </li>
 
       <!-- Add Client Link -->
-      <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT">
-        <a
-          routerLink="./add-client"
-          class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-        >
-          <i class="fas fa-user-plus w-5 text-gray-500"></i>
-          <span class="ml-3">Add Client</span>
+      <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT" class="list-none">
+        <a routerLink="./add-client"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-user-plus w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Add Client</span>
         </a>
       </li>
-    </nav>
 
-    <!-- User Profile Section -->
-    <div class="p-4 bg-white border-t border-gray-200">
-      <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 bg-emerald-500 rounded-full"></div>
-        <div>
-          <!-- <div class="text-sm font-medium text-gray-900">{{ clientName }}</div> -->
-          <!-- <div class="text-xs text-gray-500">{{ clientEmail }}</div> -->
-        </div>
+
+      <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-blue-50">
+        <button class="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+                (click)="logout()"
+        >
+          Log out
+        </button>
       </div>
-    </div>
+    </nav>
   </aside>
 
   <!-- Main Content -->
-  <div class="flex-1 p-8 bg-gray-50 text-gray-900 overflow-y-auto">
-    <router-outlet></router-outlet>
-  </div>
+  <main class="ml-64 flex-1 bg-gray-100 min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>
+

@@ -67,7 +67,7 @@ export class LoginFormComponent {
           }
           else if (userStatus === Status.PENDING_PASS) {
             this.toastService.showToast(response.data.message , 'warning');
-            this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
+            this.router.navigate(['/app/change-password'] ,  { queryParams: { email: response.data.userResponseDto.email } }).then(() => {
             });
           }
           else {

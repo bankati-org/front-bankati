@@ -9,6 +9,7 @@ import {WalletComponent} from "./components/wallet/wallet.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.component";
 import {AddClientComponent} from "./components/add-client/add-client.component";
+import {PasswordComponent} from "./components/password/password.component";
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
       {path : 'wallet' , component : WalletComponent} ,
+      {path:'change-password' , component : PasswordComponent} ,
       {
         path: 'dashboard',
         component: DashboardComponent,

@@ -85,4 +85,15 @@ export class AuthService {
     this.userRoleSubject.next(''); // Reset the BehaviorSubject
   }
 
+  changePassword(email: string, newPassword: string): Observable<ApiResponse<string>> {
+    const payload = { email, newPassword };
+    return this.http.put<ApiResponse<string>>(
+      `${this.apiUrl}${email}/change-password`,
+      null, // No body for PUT request
+      {
+        params: { newPassword }, // Pass newPassword as a query parameter
+      }
+    );
+  }
+
 }

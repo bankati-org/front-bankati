@@ -13,7 +13,7 @@ export interface WalletCurrency {
   providedIn: 'root'
 })
 export class WalletService {
-  private apiUrl = 'http://localhost:8082/api/v1/wallets'; // Remplacez par l'URL de votre backend
+  private apiUrl = 'http://localhost:8082/api/v1/wallets';
 
   constructor(private http: HttpClient) {}
 
