@@ -6,6 +6,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 import {User} from "../../model/User";
+import {Role} from "../../enum/role";
 
 @Component({
   selector: 'app-profile',
@@ -22,15 +23,27 @@ export class ProfileComponent implements OnInit {
   errorMessage: string | null = null; // Holds error messages
   isLoading: boolean = true; // Tracks loading state
   userList: User[] = [];
+  userRole: string = '';
+
 
 
   constructor(private userProfileService: ProfileService , private authService: AuthService , private router: Router) {}
 
   ngOnInit(): void {
+
     this.fetchUserProfile();
     this.loadAllUsers();
+    // Subscribe to the userRole$ observable
+    this.authService.userRole$.subscribe((role) => {
+      this.userRole = role;
+    });
+
+    // Load the user role on component initialization
+    this.authService.loadUserRole();
 
   }
+
+
 
   fetchUserProfile(): void {
     this.userProfileService.getUserProfile().subscribe({
@@ -57,5 +70,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  viewUserDetails(user: User) {
+
+  }
+
+  protected readonly Role = Role;
 }
 

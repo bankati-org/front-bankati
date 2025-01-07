@@ -24,7 +24,7 @@ export const routes: Routes = [
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
       {path : 'wallet' , component : WalletComponent} ,
-      {path:'change-password' , component : PasswordComponent}
+      {path:'change-password' , component : PasswordComponent} ,
       {
         path: 'dashboard',
         component: DashboardComponent,

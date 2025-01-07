@@ -20,7 +20,7 @@ import { UserAdminRequestDto, UserAgentRequestDto } from '../../model/UserReques
   styleUrl: './add-client-by-admin.component.css'
 })
 export class AddClientByAdminComponent {
-signupForm: FormGroup;
+  signupForm: FormGroup;
   isLoading: boolean = false;
 
   constructor(

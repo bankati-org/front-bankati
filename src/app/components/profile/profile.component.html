@@ -30,13 +30,20 @@
       </div>
 
       <!-- User List Section -->
-      <div class="mt-8 max-w-5xl mx-auto">
+      <div *ngIf="userRole === Role.AGENT || userRole === Role.ADMIN " class="mt-8 max-w-5xl mx-auto">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">All Users</h3>
         <div class="bg-white shadow-md rounded-lg">
           <div *ngFor="let user of userList" class="p-4 border-b last:border-b-0">
             <p class="text-sm font-medium text-gray-800">{{ user.firstName }} {{ user.lastName }}</p>
             <p class="text-xs text-gray-500">{{ user.email }}</p>
             <p class="text-xs text-gray-500">{{ user.role }}</p>
+            <!-- Add a button for user details -->
+            <button
+              (click)="viewUserDetails(user)"
+              class="mt-2 px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              View Details
+            </button>
           </div>
         </div>
       </div>

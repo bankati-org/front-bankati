@@ -35,11 +35,26 @@
       </li>
 
       <!-- Add Client Link -->
-      <li *ngIf="userRole === Role.ADMIN || userRole === Role.AGENT" class="list-none">
-        <a routerLink="./add-client"
+      <li *ngIf="userRole === Role.ADMIN" class="list-none">
+        <a routerLink="./admin/add-client"
            class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
           <i class="fas fa-user-plus w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
           <span class="ml-3 group-hover:text-blue-600">Add Client</span>
+        </a>
+      </li>
+      <li *ngIf="userRole === Role.AGENT" class="list-none">
+        <a routerLink="./agent/add-client"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-user-plus w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Add Client</span>
+        </a>
+      </li>
+      <!-- Add Agent Link -->
+      <li *ngIf="userRole === Role.ADMIN" class="list-none">
+        <a routerLink="./admin/add-agent"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-user-plus w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Add Agent</span>
         </a>
       </li>
 

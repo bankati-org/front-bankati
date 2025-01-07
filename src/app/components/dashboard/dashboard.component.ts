@@ -23,8 +23,6 @@ export class DashboardComponent {
     this.authService.userRole$.subscribe((role) => {
       this.userRole = role;
     });
-
-    // Load the user role on component initialization
     this.authService.loadUserRole();
   }
   protected readonly Role = Role;

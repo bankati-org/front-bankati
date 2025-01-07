@@ -85,6 +85,8 @@ export class AuthService {
       `${this.apiUrlAdmin}register-client`,
       clientAdminRequestDto,
       { headers }
+    );
+  }
 
   decodeToken(token: string): void {
     try {
