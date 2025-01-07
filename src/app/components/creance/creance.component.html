@@ -1,1 +1,49 @@
-<p>creance works!</p>
+
+<h2 class="payment-heading">Paiement de facture</h2>
+<div class="container">
+  <div class="onglets">
+    <ul class="onglets__nav">
+      <li class="onglets__nav-item">
+        <a [routerLink]="'/creditors-list'" class="onglets__nav-link" [class.active]="activeTab === 'creditors'" (click)="activeTab = 'creditors'">Liste des créanciers</a>
+      </li>
+      <li class="onglets__nav-item">
+        <a [routerLink]="'/historique'" class="onglets__nav-link" [class.active]="activeTab === 'historique'" (click)="activeTab = 'historique'">Historique</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="onglets__content">
+    <div id="creditors-list" class="onglets__pane" [class.active]="activeTab === 'creditors'">
+      <div class="form-group">
+        <select id="categorySelect" class="form-control mt-3" [(ngModel)]="selectedCategory">
+          <option value="Toutes les catégories">Toutes les catégories</option>
+          <option *ngFor="let category of allCategories" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+
+      <div class="creditors-grid">
+        <div class="creditor-pair" *ngFor="let pair of getCreditorPairs(filteredCreditors)">
+          <div class="creditor" *ngFor="let creditor of pair">
+            <div class="creditor-logo">
+              <img [src]="creditor.logo" alt="{{creditor.name}} logo">
+            </div>
+            <div class="creditor-products">
+              <label>{{creditor.name}}</label>
+              <ul>
+                <li *ngFor="let product of creditor.products">{{product}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="historique" class="onglets__pane" [class.active]="activeTab === 'historique'">
+      <h2>Historique</h2>
+      <ul>
+        <li *ngFor="let payment of paymentHistory">{{ payment }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

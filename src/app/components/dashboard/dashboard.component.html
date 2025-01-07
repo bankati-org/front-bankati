@@ -42,6 +42,14 @@
         </a>
       </li>
 
+      <li *ngIf="userRole === Role.CLIENT" class="list-none">
+        <a routerLink="./creance"
+           class="flex items-center px-4 py-3 text-gray-600 rounded-lg hover:bg-gray-50 group transition-colors">
+          <i class="fas fa-receipt w-5 h-5 group-hover:text-blue-600 transition-colors"></i>
+          <span class="ml-3 group-hover:text-blue-600">Creance</span>
+        </a>
+      </li>
+
 
       <!-- Add Client Link -->
       <li *ngIf="userRole === Role.ADMIN" class="list-none">
