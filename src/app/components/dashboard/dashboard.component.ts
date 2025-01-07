@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {NgIf} from "@angular/common";
 import {Role} from "../../enum/role";
@@ -17,7 +17,7 @@ import {Role} from "../../enum/role";
 })
 export class DashboardComponent {
   userRole: string = '';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService , private router :  Router) {}
   ngOnInit(): void {
     // Subscribe to the userRole$ observable
     this.authService.userRole$.subscribe((role) => {
@@ -28,4 +28,24 @@ export class DashboardComponent {
     this.authService.loadUserRole();
   }
   protected readonly Role = Role;
+
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response) => {
+        // Remove tokens from local storage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        this.authService.clearUserRole(); // Clear the user role
+        // Redirect to the login page
+        this.router.navigate(['/app/login']).then(() => {
+          console.log('Logout successful. Redirected to login page.');
+        });
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+      },
+    });
+  }
+
 }

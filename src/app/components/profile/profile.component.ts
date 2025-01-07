@@ -40,22 +40,5 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: (response) => {
-        // Remove tokens from local storage
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        this.authService.clearUserRole(); // Clear the user role
-        // Redirect to the login page
-        this.router.navigate(['/app/login']).then(() => {
-          console.log('Logout successful. Redirected to login page.');
-        });
-      },
-      error: (err) => {
-        console.error('Logout failed:', err);
-      },
-    });
-  }
 }
 
