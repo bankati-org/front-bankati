@@ -21,10 +21,10 @@ export const routes: Routes = [
       { path: 'register', component: RegistrationFormComponent }, // Child path
       { path: 'email-confirmation', component: EmailConfirmationComponent }, // Child path for email confirmation
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
-      {path: 'homepage', component: LandingPageComponent},
+      {path: '', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
       {path : 'wallet' , component : WalletComponent} ,
-      {path:'change-password' , component : PasswordComponent} ,
+      {path:'change-password' , component : PasswordComponent},
       {
         path: 'dashboard',
         component: DashboardComponent,
