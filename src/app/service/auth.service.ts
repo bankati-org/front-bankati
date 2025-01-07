@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AgentAdminRequestDto, UserAdminRequestDto, UserAgentRequestDto, UserRequest} from "../model/UserRequest";
 import {BehaviorSubject, Observable} from "rxjs";
-import {UserAgentRequestDto, UserRequest} from "../model/UserRequest";
 import { ApiResponse } from "../model/ApiResponse";
 import { UserResponse } from "../model/UserResponse";
 import {environment} from "../../environments/environment";
@@ -15,6 +15,8 @@ import {jwtDecode} from "jwt-decode";
 export class AuthService {
   private apiUrl = `${environment.apiUrl}api/auth/`;
   private apiUrlAgent = `${environment.apiUrl}api/agent/`; // Base URL for agent endpoints
+  private apiUrlAdmin = `${environment.apiUrl}api/admin/`;
+
   private userRoleSubject = new BehaviorSubject<string>('');
   userRole$ = this.userRoleSubject.asObservable();
 
@@ -56,6 +58,33 @@ export class AuthService {
       { headers }
     );
   }
+
+
+  registerAgentByAdmin(
+    AgentAdminRequestDto: AgentAdminRequestDto
+  ): Observable<ApiResponse<UserResponse>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Set content type to JSON
+    });
+
+    return this.http.post<ApiResponse<UserResponse>>(
+      `${this.apiUrlAdmin}register-agent`,
+      AgentAdminRequestDto,
+      { headers }
+    );
+  }
+
+  registerClientByAdmin(
+    clientAdminRequestDto: UserAdminRequestDto
+  ): Observable<ApiResponse<UserResponse>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Set content type to JSON
+    });
+
+    return this.http.post<ApiResponse<UserResponse>>(
+      `${this.apiUrlAdmin}register-client`,
+      clientAdminRequestDto,
+      { headers }
 
   decodeToken(token: string): void {
     try {
