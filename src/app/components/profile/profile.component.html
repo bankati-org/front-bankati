@@ -1,9 +1,10 @@
 <div class="min-h-screen bg-gray-50">
-  <div *ngIf="isLoading; else content"
-       class="sticky top-0 w-full bg-white shadow-md z-50 p-4">
+  <!-- Loading State -->
+  <div *ngIf="isLoading; else content" class="sticky top-0 w-full bg-white shadow-md z-50 p-4">
     <p class="text-gray-600 animate-pulse">Loading user profile...</p>
   </div>
 
+  <!-- Content -->
   <ng-template #content>
     <div *ngIf="userProfile; else error" class="w-full">
       <!-- Main Profile Card -->
@@ -24,19 +25,35 @@
               <p class="text-xs text-gray-500">Email ID</p>
               <p class="text-sm font-medium">{{ userProfile.email }}</p>
             </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- User List Section -->
+      <div class="mt-8 max-w-5xl mx-auto">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">All Users</h3>
+        <div class="bg-white shadow-md rounded-lg">
+          <div *ngFor="let user of userList" class="p-4 border-b last:border-b-0">
+            <p class="text-sm font-medium text-gray-800">{{ user.firstName }} {{ user.lastName }}</p>
+            <p class="text-xs text-gray-500">{{ user.email }}</p>
+            <p class="text-xs text-gray-500">{{ user.role }}</p>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Error State -->
     <ng-template #error>
       <div *ngIf="errorMessage" class="max-w-5xl mx-auto mt-4">
         <div class="bg-red-50 border-l-4 border-red-400 p-4">
           <div class="flex">
             <div class="flex-shrink-0">
               <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
               </svg>
             </div>
             <div class="ml-3">
