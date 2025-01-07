@@ -11,6 +11,7 @@ import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.co
 import {AddClientComponent} from "./components/add-client/add-client.component";
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { AddClientByAdminComponent } from './components/add-client-by-admin/add-client-by-admin.component';
+import {PasswordComponent} from "./components/password/password.component";
 
 
 export const routes: Routes = [
@@ -22,8 +23,8 @@ export const routes: Routes = [
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
-      {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path : 'wallet' , component : WalletComponent} ,
+      {path:'change-password' , component : PasswordComponent}
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -33,9 +34,12 @@ export const routes: Routes = [
           { path: 'agent/add-client', component: AddClientComponent },
           {path: 'admin/add-client', component: AddClientByAdminComponent},
           {path: 'admin/add-agent', component: AddAgentComponent},
-          { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Default child route
+          {path:'crypto-wallet',component: CryptoWalletComponent},
+          { path: '', redirectTo: 'profile', pathMatch: 'full' } // Default child route
+
         ]
       },
+
     ]
   }
 ];
