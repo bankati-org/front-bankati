@@ -82,11 +82,11 @@ export class CryptoWalletComponent {
   constructor(private cryptoWalletService: CryptoWalletService) {}
 
   ngOnInit(): void {
-    this.fetchBalances();
     this.fetchTransactions();
     this.fetchCryptoMarketData();
     this.updateExchangeRate();
     this.fetchDoughnutChartData();
+      this.fetchBalances();
   }
 
   fetchBalances(): void {
@@ -158,7 +158,7 @@ export class CryptoWalletComponent {
         },
         error: (err) => {
           console.error('Transfer failed:', err);
-          this.message = 'Transfer failed. Please try again.';
+          window.location.reload();
         }
       });
   }
