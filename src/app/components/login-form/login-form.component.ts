@@ -49,8 +49,10 @@ export class LoginFormComponent {
             // Store tokens in local storage if user is active
             localStorage.setItem('accessToken', response.data.token);
             localStorage.setItem('refreshToken', response.data.refreshToken);
+            this.authService.decodeToken(response.data.token); // Decode the token and set the role
+
             this.toastService.showToast(response.message, 'success');
-            this.router.navigate(['/app/profile']).then(() => {
+            this.router.navigate(['/app/dashboard/profile']).then(() => {
               console.log('Navigation to profile page successful!');
               this.loginForm.reset(); // Reset the form after successful navigation
             });
@@ -61,6 +63,11 @@ export class LoginFormComponent {
           } else if (userStatus === Status.EMAIL_VERIFIED) {
             this.toastService.showToast("need to confirm you phone", 'warning');
             this.router.navigate(['/app/phone-confirmation'] ,  { queryParams: { phone: response.data.userResponseDto.phoneNumber } }).then(() => {
+            });
+          }
+          else if (userStatus === Status.PENDING_PASS) {
+            this.toastService.showToast(response.data.message , 'warning');
+            this.router.navigate(['/app/change-password'] ,  { queryParams: { email: response.data.userResponseDto.email } }).then(() => {
             });
           }
           else {
@@ -90,7 +97,8 @@ export class LoginFormComponent {
     });
   }
   signInWithGoogle(): void {
-    this.toastService.showToast('Google sign-in feature coming soon!', 'info');
-    console.log('Sign in with Google clicked');
+    // Navigate to a specific route
+    this.router.navigate(['/app/register']); // Replace '/your-target-route' with your desired route
   }
+
 }

@@ -5,11 +5,15 @@ import { Observable } from 'rxjs';
 export interface ExchangeRates {
   [key: string]: number;
 }
+export interface WalletCurrency {
+  currencyCode: string;
+  balance: number;
+}
 @Injectable({
   providedIn: 'root'
 })
 export class WalletService {
-  private apiUrl = 'http://localhost:8082/api/v1/wallets'; // Remplacez par l'URL de votre backend
+  private apiUrl = 'http://localhost:8082/api/v1/wallets';
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +22,10 @@ export class WalletService {
     console.log(response)
     return response;
 
+  }
+
+  getFiatWallets(userId: number): Observable<WalletCurrency[]> {
+    return this.http.get<WalletCurrency[]>(`${this.apiUrl}/fiat?userId=${userId}`);
   }
 
   geTransactions(userId: number): Observable<any> {

@@ -2,15 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {UserResponse} from "../../model/UserResponse";
 import {ProfileService} from "../../service/profile.service";
 import {ApiResponse} from "../../model/ApiResponse";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
+import {User} from "../../model/User";
+import {Role} from "../../enum/role";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    NgForOf
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -19,12 +22,28 @@ export class ProfileComponent implements OnInit {
   userProfile: UserResponse | null = null; // Holds the user profile data
   errorMessage: string | null = null; // Holds error messages
   isLoading: boolean = true; // Tracks loading state
+  userList: User[] = [];
+  userRole: string = '';
+
+
 
   constructor(private userProfileService: ProfileService , private authService: AuthService , private router: Router) {}
 
   ngOnInit(): void {
+
     this.fetchUserProfile();
+    this.loadAllUsers();
+    // Subscribe to the userRole$ observable
+    this.authService.userRole$.subscribe((role) => {
+      this.userRole = role;
+    });
+
+    // Load the user role on component initialization
+    this.authService.loadUserRole();
+
   }
+
+
 
   fetchUserProfile(): void {
     this.userProfileService.getUserProfile().subscribe({
@@ -40,22 +59,21 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: (response) => {
-        // Remove tokens from local storage
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-
-        // Redirect to the login page
-        this.router.navigate(['/app/login']).then(() => {
-          console.log('Logout successful. Redirected to login page.');
-        });
+  loadAllUsers(): void {
+    this.userProfileService.getAllUsers().subscribe({
+      next: (response: User[]) => {
+        this.userList = response;
       },
       error: (err) => {
-        console.error('Logout failed:', err);
+        this.errorMessage = 'Failed to load user list.';
       },
     });
   }
+
+  viewUserDetails(user: User) {
+
+  }
+
+  protected readonly Role = Role;
 }
 

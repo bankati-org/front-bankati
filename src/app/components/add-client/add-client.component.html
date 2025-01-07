@@ -1,0 +1,85 @@
+<div class="fixed top-0 left-0 w-full bg-blue-600 text-white p-4 flex justify-between items-center shadow-lg">
+  <span class="text-lg font-semibold">Add Client</span>
+
+</div>
+
+
+
+<div class="flex min-h-screen max-h-screen overflow-y-auto">
+  <!-- Right Side - Welcome Section -->
+  <div class="w-full lg:w-2/3 p-4 lg:p-8 overflow-hidden">
+    <div class="max-w-prose w-full mx-auto">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-3">
+        <div>
+          <div class="flex justify-between space-x-4">
+            <div class="w-3/6">
+              <label class=" text-sm font-medium mb-1 inline-block">First Name</label>
+              <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="inline-block ml-4">
+                <small class="text-red-500" *ngIf="signupForm.get('firstName')?.errors?.['required']">First Name is required.</small>
+              </div>
+              <input type="text" formControlName="firstName"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     placeholder="Enter your first name">
+            </div>
+            <div class="w-3/6">
+              <label class=" text-sm font-medium mb-1 inline-block">Last Name</label>
+              <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="inline-block ml-4">
+                <small class="text-red-500" *ngIf="signupForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+              </div>
+              <input type="text" formControlName="lastName"
+                     class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                     placeholder="Enter your last name">
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div>
+          <label class="text-sm font-medium mr-2  mb-1 inline-block">Email</label>
+          <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="inline-block ">
+            <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['required']">Email is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+          </div>
+          <input type="email" formControlName="email"
+                 class="w-full py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="Enter your email">
+        </div>
+        <div>
+          <label class="text-sm font-medium mb-1 inline-block">Phone Number</label>
+          <div *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched" class="inline-block ml-4">
+            <small class="text-red-500" *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Please enter a valid phone number (e.g., +212123456789).</small>
+          </div>
+          <div class="relative">
+            <div class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <img ngSrc="assets/morocco.svg" alt="Morocco flag" class="w-7 h-7" height="48" width="48">
+              <span class="text-gray-600">+212</span>
+            </div>
+            <input type="tel"
+                   formControlName="phoneNumber"
+                   class="w-full pl-24 pr-4 py-3 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Enter your phone number" maxlength="9">
+          </div>
+          <label class="text-sm font-medium mb-1 mr-2 mt-2 inline-block">CIN (Carte d'Identité Nationale)</label>
+          <div *ngIf="signupForm.get('cin')?.invalid && signupForm.get('cin')?.touched" class="inline-block">
+            <small class="text-red-500" *ngIf="signupForm.get('cin')?.errors?.['required']">CIN is required *.</small>
+            <small class="text-red-500" *ngIf="signupForm.get('cin')?.errors?.['pattern']">valid CIN (format: 12345678 or AA123456).</small>
+          </div>
+          <input type="text" formControlName="cin"
+                 class="w-[100%] py-3 px-2 border border-gray-300 rounded-[2px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                 placeholder="Enter your CIN number" maxlength="8">
+        </div>
+        <div>
+        </div>
+        <button type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-2 rounded-[2px] hover:bg-blue-700 transition-colors flex items-center justify-start"
+                [disabled]="!signupForm.valid || isLoading"
+                [ngStyle]="{'cursor': !signupForm.valid || isLoading ? 'not-allowed' : 'pointer'}">
+          <!-- Spinner inside the button, left of the text -->
+          <div *ngIf="isLoading" class="spinner-border w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+          <span class="flex-grow text-center">Register Client</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
