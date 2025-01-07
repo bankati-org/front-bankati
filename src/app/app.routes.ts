@@ -21,7 +21,6 @@ export const routes: Routes = [
       {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path: 'homepage', component: LandingPageComponent},
       {path : 'login' ,  component : LoginFormComponent} ,
-      {path : 'phone-confirmation' ,  component : PhoneConfirmationComponent},
       {path : 'wallet' , component : WalletComponent} ,
       {path:'change-password' , component : PasswordComponent} ,
       {
@@ -32,8 +31,11 @@ export const routes: Routes = [
           { path: 'profile', component: ProfileComponent },
           { path: 'wallet', component: WalletComponent },
           { path: 'add-client', component: AddClientComponent },
+          {path:'crypto-wallet',component: CryptoWalletComponent}
+
         ]
       },
+
     ]
   }
 ];
