@@ -14,3 +14,19 @@ export interface UserAgentRequestDto {
   phoneNumber: string;
   cin: string;
 }
+
+export interface UserAdminRequestDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  cin: string;
+}
+
+export interface AgentAdminRequestDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  cin: string;
+}

@@ -9,6 +9,8 @@ import {WalletComponent} from "./components/wallet/wallet.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {CryptoWalletComponent} from "./components/crypto-wallet/crypto-wallet.component";
 import {AddClientComponent} from "./components/add-client/add-client.component";
+import { AddAgentComponent } from './components/add-agent/add-agent.component';
+import { AddClientByAdminComponent } from './components/add-client-by-admin/add-client-by-admin.component';
 
 
 export const routes: Routes = [
@@ -26,10 +28,12 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         children: [
-          { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Default child route
           { path: 'profile', component: ProfileComponent },
           { path: 'wallet', component: WalletComponent },
-          { path: 'add-client', component: AddClientComponent },
+          { path: 'agent/add-client', component: AddClientComponent },
+          {path: 'admin/add-client', component: AddClientByAdminComponent},
+          {path: 'admin/add-agent', component: AddAgentComponent},
+          { path: '', redirectTo: 'profile', pathMatch: 'full' }, // Default child route
         ]
       },
     ]
