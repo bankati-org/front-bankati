@@ -3,6 +3,7 @@ import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {NgIf} from "@angular/common";
 import {Role} from "../../enum/role";
+import { HttpClientTestingModule } from '@angular/common/http/testing';  // Add this
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,8 @@ import {Role} from "../../enum/role";
   imports: [
     RouterOutlet,
     RouterLink,
-    NgIf
+    NgIf,
+    HttpClientTestingModule  // Add this
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
