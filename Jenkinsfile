@@ -8,7 +8,7 @@ pipeline {
         DOCKER_TAG_NAME = 'latest'
         DOCKER_REGISTRY = 'soukaina915/bankati-front'
         DOCKER_REGISTRY_CREDENTIALS_ID = 'soukaina-docker-hub'
-        MANIFEST_URL = 'https://github.com/ia-project-org/FrontendManifest.git'
+        MANIFEST_URL = 'https://github.com/bankati-org/front-manifest.git'
         GITHUB_CREDENTIALS = "github-soukaina"
     }
 
@@ -89,32 +89,31 @@ pipeline {
             }
         }
 
+        stage('Push Manifest Changes to Git') {
+            steps {
+                script {
+                    def newImageTag = "soukaina915/bankati-front:${BUILD_NUMBER}" // Or use any versioning strategy
+                    echo "New image tag: ${newImageTag}"
 
-//        stage('Push Manifest Changes to Git') {
-//            steps {
-//                script {
-//                    def newImageTag = "soukaina915/ai-front:${BUILD_NUMBER}" // Or use any versioning strategy
-//                    echo "New image tag: ${newImageTag}"
-//
-//                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, passwordVariable: 'GITHUB_PASSWORD', usernameVariable: 'GITHUB_USERNAME')]) {
-//                        git credentialsId: GITHUB_CREDENTIALS, url: MANIFEST_URL, branch: 'main'
-//
-//                        sh """
-//                            sed -i 's|soukaina915/ai-front:[^ ]*|${newImageTag}|' dev/deployment.yaml
-//                            echo "Updated image tag in deployment.yaml to ${newImageTag}"
-//                            cat dev/deployment.yaml
-//                        """
-//
-//                        sh """
-//                            git status
-//                            git add dev/deployment.yaml
-//                            git commit -m "Update Kubernetes manifests for deployment"
-//                            git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/ia-project-org/FrontendManifest.git main
-//                        """
-//                    }
-//                }
-//            }
-//        }
+                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS, passwordVariable: 'GITHUB_PASSWORD', usernameVariable: 'GITHUB_USERNAME')]) {
+                        git credentialsId: GITHUB_CREDENTIALS, url: MANIFEST_URL, branch: 'main'
+
+                        sh """
+                            sed -i 's|soukaina915/bankati-front:[^ ]*|${newImageTag}|' dev/deployment.yaml
+                            echo "Updated image tag in deployment.yaml to ${newImageTag}"
+                            cat dev/deployment.yaml
+                        """
+
+                        sh """
+                            git status
+                            git add dev/deployment.yaml
+                            git commit -m "Update Kubernetes manifests for deployment"
+                            git push https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/bankati-org/front-manifest.git main
+                        """
+                    }
+                }
+            }
+        }
     }
 
 
