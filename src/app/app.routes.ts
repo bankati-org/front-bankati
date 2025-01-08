@@ -17,7 +17,7 @@ import {CreanceComponent} from "./components/creance/creance.component";
 
 export const routes: Routes = [
   {
-    path: 'app', // Parent path
+    path: '', // Parent path
     children: [
       { path: 'register', component: RegistrationFormComponent }, // Child path
       { path: 'email-confirmation', component: EmailConfirmationComponent }, // Child path for email confirmation
