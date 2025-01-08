@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {environment} from "../../environments/environment";
 
 export interface TransferRequest {
   fromUserId: string;
@@ -22,7 +23,7 @@ export interface TransferMultiCurrencyRequest {
   providedIn: 'root'
 })
 export class TransferService {
-  private apiUrl = 'http://localhost:8082/api/v1/wallets';
+  private apiUrl = `${environment.walletApiUrl}api/v1/wallets`;
 
   constructor(private http: HttpClient) {}
 

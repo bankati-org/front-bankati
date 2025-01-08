@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:9007/'  // Base URL for development
+  apiUrl: 'http://34.41.170.207:30107/',
+  walletApiUrl: 'http://34.41.170.207:30182/',
 };
