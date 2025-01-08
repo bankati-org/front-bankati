@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransferDialogComponentComponent } from './transfer-dialog.component';
+import { TransferDialogComponent } from './transfer-dialog.component';
 
-describe('TransferDialogComponentComponent', () => {
-  let component: TransferDialogComponentComponent;
-  let fixture: ComponentFixture<TransferDialogComponentComponent>;
+describe('TransferDialogComponent', () => {
+  let component: TransferDialogComponent;
+  let fixture: ComponentFixture<TransferDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TransferDialogComponentComponent]
+      imports: [TransferDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TransferDialogComponentComponent);
+    fixture = TestBed.createComponent(TransferDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

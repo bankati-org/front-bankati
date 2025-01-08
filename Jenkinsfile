@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     echo "Running Vitest tests..."
-                    sh 'npm run test -- --coverage'
+                    sh 'npm run test' // -- --coverage
                     // Archive the coverage report (assuming it's generated in a 'coverage' directory)
                     archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
 
