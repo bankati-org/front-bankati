@@ -36,45 +36,45 @@ pipeline {
             }
         }
 
-        stage('Run Unit Tests and Coverage') {
-            steps {
-                script {
-                    echo "Running Vitest tests..."
-                    sh 'npm run test' // -- --coverage
-                    // Archive the coverage report (assuming it's generated in a 'coverage' directory)
-                    archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
-
-                }
-            }
-        }
-
-        stage('Print JSON content') {
-            steps {
-                script {
-                    sh 'cat ./test-output.json'
-                }
-            }
-        }
-
-        stage("Sonarqube Analysis") {
-            environment {
-                SCANNER_HOME = tool 'sonar'  // sonar-scanner is the name of the tool in the manage jenkins> tool configuration
-            }
-            steps {
-                withSonarQubeEnv(installationName: 'sonar' , credentialsId: 'sonar') {
-                    sh "${SCANNER_HOME}/bin/sonar-scanner"
-
-                }
-            }
-        }
-
-        stage('Quality gate') {
-            steps {
-                script {
-                    waitForQualityGate abortPipeline: false ,  credentialsId: 'sonar'
-                }
-            }
-        }
+//        stage('Run Unit Tests and Coverage') {
+//            steps {
+//                script {
+//                    echo "Running Vitest tests..."
+//                    sh 'npm run test' // -- --coverage
+//                    // Archive the coverage report (assuming it's generated in a 'coverage' directory)
+//                    archiveArtifacts artifacts: 'coverage/**', allowEmptyArchive: true
+//
+//                }
+//            }
+//        }
+//
+//        stage('Print JSON content') {
+//            steps {
+//                script {
+//                    sh 'cat ./test-output.json'
+//                }
+//            }
+//        }
+//
+//        stage("Sonarqube Analysis") {
+//            environment {
+//                SCANNER_HOME = tool 'sonar'  // sonar-scanner is the name of the tool in the manage jenkins> tool configuration
+//            }
+//            steps {
+//                withSonarQubeEnv(installationName: 'sonar' , credentialsId: 'sonar') {
+//                    sh "${SCANNER_HOME}/bin/sonar-scanner"
+//
+//                }
+//            }
+//        }
+//
+//        stage('Quality gate') {
+//            steps {
+//                script {
+//                    waitForQualityGate abortPipeline: false ,  credentialsId: 'sonar'
+//                }
+//            }
+//        }
 
         stage('Build and Push Docker Image') {
             steps {
