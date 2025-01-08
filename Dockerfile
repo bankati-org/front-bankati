@@ -1,4 +1,4 @@
-FROM node:20 as build-stage
+FROM node:20 AS build-stage
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=build-stage /app/dist/front-bankati /usr/share/nginx/html
+COPY --from=build-stage /app/dist/bankati-2 /usr/share/nginx/html
 
 EXPOSE 80
 
