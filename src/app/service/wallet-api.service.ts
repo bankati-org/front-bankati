@@ -14,7 +14,7 @@ export interface WalletCurrency {
   providedIn: 'root'
 })
 export class WalletService {
-  private apiUrl = `${environment.walletApiUrl}api/v1/wallets`;
+  private apiUrl = `${environment.apiUrl}api/v1/wallets`;
 
   constructor(private http: HttpClient) {}
 

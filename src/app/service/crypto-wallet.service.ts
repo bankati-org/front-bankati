@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class CryptoWalletService {
-  private apiUrl = `${environment.walletApiUrl}api/crypto`;
+  private apiUrl = `${environment.apiUrl}api/crypto`;
 
 
   constructor(private http: HttpClient) {}
